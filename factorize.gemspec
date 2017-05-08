@@ -37,4 +37,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'redis', '~> 3.3', '>= 3.3.1'
   spec.add_runtime_dependency "fakeredis"
   spec.add_runtime_dependency 'sidekiq', '~> 5.0'
+  spec.add_runtime_dependency 'redis-objects', '~> 1.3'
 end
