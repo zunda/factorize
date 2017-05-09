@@ -17,6 +17,9 @@ class FactorizeStoreNumberSetTest < Minitest::Test
     assert_equal @ary.sort, x.waiting_for.sort
   end
 
+  # This test sometimes fail:
+  # Expected: [3, 6]
+  #   Actual: [2, 3, 4, 6]
   def test_initialize_with_some_cache
     factorized = [2, 4, 5]
     factorized.each do |n|
