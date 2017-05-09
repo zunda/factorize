@@ -43,4 +43,12 @@ class FactorizeStoreNumberSetTest < Minitest::Test
     end
     assert x.complete?
   end
+
+  def test_synchronize
+    x = Factorize::Store::NumberSet.new(@src, @ary)
+    y = Factorize::Store::NumberSet.new(@src, @ary)
+    assert_equal x.waiting_for.sort, y.waiting_for.sort
+    x.done_with(2)
+    assert_equal x.waiting_for.sort, y.waiting_for.sort
+  end
 end
