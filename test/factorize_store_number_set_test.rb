@@ -16,4 +16,13 @@ class FactorizeStoreNumberSetTest < Minitest::Test
     assert_equal @src, x.source_object
     assert_equal @ary.sort, x.waiting_for.sort
   end
+
+  def test_initialize_with_some_cache
+    factorized = [2, 4, 5]
+    factorized.each do |n|
+      Factorize::Store::Number.new(n).factorize!
+    end
+    x = Factorize::Store::NumberSet.new(@src, @ary)
+    assert_equal (@ary - factorized).sort, x.waiting_for.sort
+  end
 end
