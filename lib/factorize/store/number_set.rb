@@ -29,6 +29,10 @@ module Factorize
       def done_with(number)
         waiting_for_store.delete(number)
       end
+
+      def complete?
+        waiting_for_store.empty?
+      end
     end
   end
 end

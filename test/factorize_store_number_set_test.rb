@@ -31,4 +31,13 @@ class FactorizeStoreNumberSetTest < Minitest::Test
     x.done_with(5)
     assert_equal (@ary - [5]).sort, x.waiting_for.sort
   end
+
+  def test_complete
+    x = Factorize::Store::NumberSet.new(@src, @ary)
+    assert !x.complete?
+    @ary.each do |n|
+      x.done_with(n)
+    end
+    assert x.complete?
+  end
 end
