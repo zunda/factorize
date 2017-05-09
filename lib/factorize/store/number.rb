@@ -15,8 +15,11 @@ module Factorize
       end
 
       def factorize!
-        @factors = Prime.prime_division(@number)
-        self.cached_factors = Marshal::dump(@factors)
+        unless @factors
+          @factors = Prime.prime_division(@number)
+          self.cached_factors.value = Marshal::dump(@factors)
+        end
+        return @factors
       end
 
       def factors

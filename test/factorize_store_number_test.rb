@@ -9,6 +9,7 @@ class FactorizeStoreNumberTest < Minitest::Test
   end
 
   def test_factorize
+    assert_equal Prime.prime_division(@n), @x.factorize!
     assert_equal Prime.prime_division(@n), @x.factors
   end
 
