@@ -2,11 +2,16 @@ require 'test_helper'
 require 'fakeredis/minitest'
 
 class FactorizeStoreNumberSetTest < Minitest::Test
+
   def setup
     @src = "2, 3, 4, 5, 6"
     def @src.id; return self.intern; end
     @ary = @src.scan(/\d+/).map{|e| Integer(e)}
-    Redis.new.flushall
+    _cleanup_redis
+  end
+
+  def teardown
+    _cleanup_redis
   end
 
   def test_initialize_without_cache
@@ -53,5 +58,12 @@ class FactorizeStoreNumberSetTest < Minitest::Test
     assert Redis.new.keys.length > n
     x.forget!
     assert Redis.new.keys.length == n
+  end
+
+  def _cleanup_redis
+    Factorize::Store::NumberSet.new(@src, @ary).forget!
+    @ary.each do |n|
+      Factorize::Store::Number.new(n).forget!
+    end
   end
 end
