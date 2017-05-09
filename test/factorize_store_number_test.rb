@@ -1,11 +1,15 @@
 require 'test_helper'
-require 'fakeredis'
+require 'fakeredis/minitest'
 
 class FactorizeStoreNumberTest < Minitest::Test
   def setup
     @n = 42
     @x= Factorize::Store::Number.new(@n)
     @x.factorize!
+  end
+
+  def teardown
+    @x.forget!
   end
 
   def test_factorize
