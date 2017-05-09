@@ -33,6 +33,13 @@ module Factorize
       def complete?
         waiting_for_store.empty?
       end
+
+      def forget!
+        waiting_for_store.get.each do |n|
+          waiting_for_store.delete(n)
+        end
+        source_store.delete
+      end
     end
   end
 end
