@@ -16,4 +16,9 @@ class FactorizeStoreNumberTest < Minitest::Test
     y= Factorize::Store::Number.new(@n)
     assert_equal Prime.prime_division(@n), y.factors
   end
+
+  def test_to_forget
+    @x.forget!
+    assert_nil @x.factors
+  end
 end

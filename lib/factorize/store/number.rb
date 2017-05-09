@@ -20,7 +20,15 @@ module Factorize
       end
 
       def factors
-        return @factors || Marshal::load(self.cached_factors)
+        return @factors if @factors
+        x = self.cached_factors.value
+        return @factors = Marshal::load(x) if x
+        return nil
+      end
+
+      def forget!
+        @factors = nil
+        self.cached_factors.delete
       end
     end
   end
