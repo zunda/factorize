@@ -6,7 +6,7 @@ class FactorizeTest < Minitest::Test
     refute_nil ::Factorize::VERSION
   end
 
-  def test_that_fakeredis_is_available
+  def test_that_redis_or_fakeredis_is_available
     assert Redis.new
   end
 end
