@@ -25,6 +25,10 @@ module Factorize
       def source_object
         return source_store.value
       end
+
+      def done_with(number)
+        waiting_for_store.delete(number)
+      end
     end
   end
 end

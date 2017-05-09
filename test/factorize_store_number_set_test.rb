@@ -25,4 +25,10 @@ class FactorizeStoreNumberSetTest < Minitest::Test
     x = Factorize::Store::NumberSet.new(@src, @ary)
     assert_equal (@ary - factorized).sort, x.waiting_for.sort
   end
+
+  def test_done_with
+    x = Factorize::Store::NumberSet.new(@src, @ary)
+    x.done_with(5)
+    assert_equal (@ary - [5]).sort, x.waiting_for.sort
+  end
 end
