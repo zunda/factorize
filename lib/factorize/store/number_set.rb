@@ -1,5 +1,4 @@
 require 'redis-objects'
-require 'prime'
 
 module Factorize
   module Store
