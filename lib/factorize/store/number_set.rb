@@ -9,6 +9,13 @@ module Factorize
       redis_id_field :source_id
 
       attr_reader :source_id
+
+      def NumberSet.fetch(source_id)
+        source_object = NumberSet.redis.get(source_id)
+        numbers = NumberSet.redis.get(source_id)
+        NumberSet.new(source_object, numbers)
+      end
+
       def initialize(source_object, numbers)
         @source_id = source_object.id
         source_store.value = source_object
@@ -16,6 +23,7 @@ module Factorize
           waiting_for_store.add(n) unless Number.new(n).factors
         end
       end
+
 
       def waiting_for
         return waiting_for_store.get.map{|e| Integer(e)}

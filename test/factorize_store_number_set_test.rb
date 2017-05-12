@@ -60,6 +60,12 @@ class FactorizeStoreNumberSetTest < Minitest::Test
     assert Redis.new.keys.length == n
   end
 
+  def test_fetch
+    x = Factorize::Store::NumberSet.new(@src, @ary)
+    y = Factorize::Store::NumberSet.fetch(x.source_id)
+    assert_equal x.source, y.source
+  end
+
   def _cleanup_redis
     Factorize::Store::NumberSet.new(@src, @ary).forget!
     @ary.each do |n|
