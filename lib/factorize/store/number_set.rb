@@ -3,16 +3,19 @@ require 'redis-objects'
 module Factorize
   module Store
     class NumberSet
+      def NumberSet.key(id, field)
+        "number_set:#{id}:#{field}"
+      end
       include Redis::Objects
-      value :source_store
-      set :waiting_for_store
+      value :source_store, :key => NumberSet.key('#{id}', 'source_store')
+      set :waiting_for_store, :key => NumberSet.key('#{id}', 'waiting_for_store')
       redis_id_field :source_id
 
       attr_reader :source_id
 
       def NumberSet.fetch(source_id)
-        source_object = NumberSet.redis.get(source_id)
-        numbers = NumberSet.redis.get(source_id)
+        source_object = NumberSet.redis.get(NumberSet.key(source_id, 'source_store'))
+        numbers = NumberSet.redis.smembers(NumberSet.key(source_id, 'waiting_for_store')).map {|e| Integer(e)}
         NumberSet.new(source_object, numbers)
       end
 
@@ -23,7 +26,6 @@ module Factorize
           waiting_for_store.add(n) unless Number.new(n).factors
         end
       end
-
 
       def waiting_for
         return waiting_for_store.get.map{|e| Integer(e)}

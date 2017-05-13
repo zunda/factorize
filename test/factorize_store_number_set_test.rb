@@ -63,7 +63,8 @@ class FactorizeStoreNumberSetTest < Minitest::Test
   def test_fetch
     x = Factorize::Store::NumberSet.new(@src, @ary)
     y = Factorize::Store::NumberSet.fetch(x.source_id)
-    assert_equal x.source, y.source
+    assert_equal x.source_object, y.source_object
+    assert_equal x.waiting_for.sort, y.waiting_for.sort
   end
 
   def _cleanup_redis
