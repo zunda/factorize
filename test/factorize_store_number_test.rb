@@ -26,4 +26,10 @@ class FactorizeStoreNumberTest < Minitest::Test
     @x.forget!
     assert_nil @x.factors
   end
+
+  def test_state
+    assert_equal 2, @x.state
+    @x.forget!
+    assert_equal 0, @x.state
+  end
 end
